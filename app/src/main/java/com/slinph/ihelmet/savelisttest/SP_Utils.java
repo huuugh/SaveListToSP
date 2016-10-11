@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/8/8.
+ * Created by hugh on 2016/8/8.
+ * Save  data to SharePreferences
  */
-public class spUtils {
+public class SP_Utils {
 
     public static String PREFERENCE_NAME = "TrineaAndroidCommon";
 
@@ -53,7 +55,7 @@ public class spUtils {
         if (null == strList) {
             return;
         }
-        // 保存之前先清理已经存在的数据，保证数据的唯一性
+        //remove data before save to keep the data unique
         removeStrList(context, key);
         int size = strList.size();
         putInt(context, key + "size", size);
@@ -128,7 +130,6 @@ public class spUtils {
 
     /**
      * clear data of key
-     *
      * @param context
      * @param key
      */
@@ -137,5 +138,35 @@ public class spUtils {
                 .edit();
         sp.remove(key);
         sp.commit();
+    }
+
+    /**
+     * put map preference
+     * @param key the name of map preference
+     * @param map the value of map preference
+     */
+    public static void putMapValue(Context context,String key,HashMap<String, String> map){
+        ArrayList<String> strings = new ArrayList<>();
+        strings.clear();
+        for (String set_key:map.keySet()){
+            strings.add(set_key);
+            strings.add(map.get(set_key));
+        }
+        putStrListValue(context,key,strings);
+    }
+
+    /**
+     * get map preference
+     * @param key the name of the map saved before
+     */
+    public static HashMap getMapValue(Context context,String key){
+        List<String> listFromSp = getStrListValue(context, key);
+        HashMap<String, String> HashMap = new HashMap<>();
+        for (int i=0;i<listFromSp.size();i=i+2){
+            String s = listFromSp.get(i);
+            String s1 = listFromSp.get(i + 1);
+            HashMap.put(s,s1);
+        }
+        return HashMap;
     }
 }

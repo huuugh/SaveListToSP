@@ -18,13 +18,13 @@ public class MainActivity extends AppCompatActivity {
         strings.add("hello");
         strings.add("world");
 
-        spUtils.putStrListValue(this,"list",strings);
+        SP_Utils.putStrListValue(this,"list",strings);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        List<String> list = spUtils.getStrListValue(this, "list");
+        List<String> list = SP_Utils.getStrListValue(this, "list");
         //String s = list.toString();
         Log.e("打印list[0]",list.get(0));
         Log.e("打印list[1]",list.get(1));
