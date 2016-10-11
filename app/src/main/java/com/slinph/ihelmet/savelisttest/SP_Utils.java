@@ -35,6 +35,7 @@ public class SP_Utils {
      *
      * @param context
      * @param key The name of the preference to modify
+     *
      * @param value The new value for the preference
      * @return True if the new values were successfully written to persistent storage.
      */
